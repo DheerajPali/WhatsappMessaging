@@ -1,10 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
+const port = process.env.AzurePort || 3000;
 
 app.use(bodyParser.json());
 
-// Basic root endpoint
+//Basic root endpoint
 app.get('/', (req, res) => {
   res.send('Server is running!');
 });
@@ -39,5 +40,7 @@ app.post("/webhook", (req, res) => {
   }
 });
 
-// ✅ Export the app for Vercel
-module.exports = app;
+// ✅ Single app.listen() here
+app.listen(port, () => {
+  console.log(`Server is listening on http://localhost:${port}`);
+});
